@@ -58,6 +58,15 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Running on Docker
+From the root project folder
+```bash
+$ docker-compose -f docker-compose.local.yml up -d
+```
+
+Then use `localhost:4000`
+
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
