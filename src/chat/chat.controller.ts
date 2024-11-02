@@ -1,26 +1,24 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 
 import { ChatService } from './chat.service';
 import { CreateChatDto } from './dto/create-chat.dto';
-import { UpdateChatDto } from './dto/update-chat.dto';
+import { Chat } from './entities/chat.entity';
 
 @Controller('chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
   @Post()
-  create(@Body() createChatDto: CreateChatDto) {
-    return this.chatService.create(createChatDto);
+  async create(@Body() dto: CreateChatDto): Promise<Chat> {
+    try {
+      return await this.chatService.create(dto);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
+  /*
   @Get()
   findAll() {
     return this.chatService.findAll();
@@ -40,4 +38,5 @@ export class ChatController {
   remove(@Param('id') id: string) {
     return this.chatService.remove(+id);
   }
+    */
 }
