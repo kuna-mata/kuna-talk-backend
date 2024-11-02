@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { CreateChatDto } from './dto/create-chat.dto';
 
 import { Chat } from './entities/chat.entity';
+import { ReadChatDto } from './dto/read-chat.dto';
 
 @Injectable()
 export class ChatService {
@@ -19,11 +20,19 @@ export class ChatService {
   findAll() {
     return `This action returns all chat`;
   }
+    */
 
-  findOne(id: number) {
-    return `This action returns a #${id} chat`;
+  async findOne(dto: ReadChatDto): Promise<Chat> {
+    return await this.chatModel
+      .findOne({
+        senderId: dto.senderId,
+        receiverId: dto.receiverId,
+        messageId: dto.messageId,
+      })
+      .exec();
   }
 
+  /*
   update(id: number, updateChatDto: UpdateChatDto) {
     return `This action updates a #${id} chat`;
   }
