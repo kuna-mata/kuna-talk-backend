@@ -1,2 +1,0 @@
-This is an example: Commit 1
-Example of squash: Commit 2
