@@ -1,9 +1,9 @@
-import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 
 import { ChatService } from './chat.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { Chat } from './entities/chat.entity';
-import { ReadChatDto } from './dto/read-chat.dto';
+import { FindAllChatDto, ReadChatDto } from './dto/read-chat.dto';
 
 @Controller('chat')
 export class ChatController {
@@ -14,12 +14,10 @@ export class ChatController {
     return await this.chatService.create(dto);
   }
 
-  /*
   @Get()
-  findAll() {
-    return this.chatService.findAll();
+  async findAll(@Query() dto: FindAllChatDto): Promise<Chat[]> {
+    return await this.chatService.findAll(dto);
   }
-    */
 
   @Get()
   async findOne(@Query() readChatDto: ReadChatDto): Promise<Chat> {
