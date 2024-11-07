@@ -1,6 +1,6 @@
 import { IsDateString, IsString } from 'class-validator';
 
-export class ReadChatDto {
+export class FindChatDto {
   @IsString()
   senderId: string;
 
