@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { ChatService } from './chat.service';
 
 describe('ChatService', () => {
@@ -6,7 +7,16 @@ describe('ChatService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ChatService],
+      providers: [
+        ChatService,
+        {
+          provide: 'ChatModel',
+          useValue: {
+            find: jest.fn(),
+            create: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<ChatService>(ChatService);
