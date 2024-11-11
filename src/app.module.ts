@@ -1,15 +1,12 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ChatModule } from './chat/chat.module';
-import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot('mongodb://kunatalk:kunatalk@mongo:27017'),
-    ChatModule,
-  ],
+  imports: [MongooseModule.forRoot(`${process.env.DATABASE}`), ChatModule],
   controllers: [AppController],
   providers: [AppService],
 })
