@@ -11,7 +11,6 @@ FROM builder
 WORKDIR /app
 COPY package*.json ./
 
-ENV NODE_ENV=Production
 RUN npm install
 COPY --from=builder /app/dist ./dist
 EXPOSE ${PORT}
