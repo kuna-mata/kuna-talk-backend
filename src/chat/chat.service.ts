@@ -13,27 +13,36 @@ export class ChatService {
   constructor(@InjectModel(Chat.name) private chatModel: Model<Chat>) {}
 
   async create(dto: CreateChatDto): Promise<Chat> {
-    return await this.chatModel.create(dto);
+    const result = await this.chatModel.create(dto);
+    console.log(result);
+
+    return result;
   }
 
   async findAll(dto: FindAllChatDto): Promise<Chat[]> {
     const oneMinute = new Date(Date.now() - 60 * 1000);
 
-    return await this.chatModel.find({
+    const result = await this.chatModel.find({
       senderId: dto.senderId,
       receiverId: dto.receiverId,
       createdAt: { $gte: oneMinute },
     });
+    console.log(result);
+
+    return result;
   }
 
   async findOne(dto: FindChatDto): Promise<Chat> {
-    return await this.chatModel
+    const result = await this.chatModel
       .findOne({
         senderId: dto.senderId,
         receiverId: dto.receiverId,
         messageId: dto.messageId,
       })
       .exec();
+    console.log(result);
+
+    return result;
   }
 
   /*
