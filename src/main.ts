@@ -1,17 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 
+import { ConfigService } from '@nestjs/config';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const configService = app.get(ConfigService);
+
+  const enabledCorsUrls = [
+    configService.get<string>('mobile.android.uri'),
+    configService.get<string>('mobile.device.uri'),
+  ];
+
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: enabledCorsUrls,
     credentials: true,
   });
 
-  await app.listen(8000);
+  const port = configService.get<number>('port');
+  await app.listen(port);
 
-  console.log('Server listen to 8000');
+  console.log(`Server listen to ${port}`);
 }
 bootstrap();

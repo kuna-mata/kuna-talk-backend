@@ -1,4 +1,4 @@
-FROM node:22-alpine as builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 COPY package*.json ./
@@ -10,7 +10,7 @@ FROM builder
 
 WORKDIR /app
 COPY package*.json ./
-ENV PORT=3000
+
 ENV NODE_ENV=Production
 RUN npm install
 COPY --from=builder /app/dist ./dist
